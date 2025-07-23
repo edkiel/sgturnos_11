@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGTURNOS - Dashboard</title>
+    <link rel="stylesheet" href="/css/main.css"> </head>
+<body class="dashboard-body">
+    <header class="main-header">
+        <div class="header-content">
+            <h1 class="app-title">Sistema de Gestión de Turnos</h1>
+            <div class="user-info">
+                Bienvenido, <span sec:authentication="name" class="user-name">Usuario</span>!
+                <form th:action="@{/logout}" method="post" class="logout-form">
+                    <button type="submit" class="btn btn-danger btn-sm">Cerrar Sesión</button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="welcome-message">
+            <h2>Panel de Control</h2>
+            <p>Tu rol(es): <span sec:authentication="authorities" class="user-roles">Roles</span></p>
+        </div>
+
+        <div class="card-grid">
+            <div sec:authorize="hasRole('ADMIN')" class="card">
+                <h3 class="card-title">Administración</h3>
+                <ul class="card-list">
+                    <li><a th:href="@{/admin/usuarios}">Gestionar Usuarios</a></li>
+                    <li><a th:href="@{/admin/roles}">Gestionar Roles</a></li>
+                    <li><a th:href="@{/admin/departamentos}">Gestionar Departamentos</a></li>
+                </ul>
+            </div>
+
+            <div sec:authorize="hasAnyRole('ADMIN', 'JEFE_AREA')" class="card">
+                <h3 class="card-title">Gestión de Turnos</h3>
+                <ul class="card-list">
+                    <li><a th:href="@{/jefe/horarios}">Gestionar Horarios</a></li>
+                    <li><a th:href="@{/jefe/turnos}">Gestionar Turnos</a></li>
+                    <li><a th:href="@{/jefe/asignaciones}">Asignar Turnos</a></li>
+                </ul>
+            </div>
+
+            <div sec:authorize="hasAnyRole('ADMIN', 'JEFE_AREA')" class="card">
+                <h3 class="card-title">Novedades</h3>
+                <ul class="card-list">
+                    <li><a th:href="@{/jefe/novedades/pendientes}">Revisar Novedades</a></li>
+                    <li><a th:href="@{/jefe/tipos-novedad}">Gestionar Tipos Novedad</a></li>
+                    <li><a th:href="@{/jefe/estados-novedad}">Gestionar Estados Novedad</a></li>
+                </ul>
+            </div>
+
+             <div sec:authorize="hasAnyRole('ADMIN', 'JEFE_AREA')" class="card">
+                <h3 class="card-title">Capacitaciones</h3>
+                <ul class="card-list">
+                    <li><a th:href="@{/jefe/capacitaciones}">Gestionar Capacitaciones</a></li>
+                    <li><a th:href="@{/jefe/temas-capacitacion}">Gestionar Temas</a></li>
+                    <li><a th:href="@{/jefe/estados-capacitacion}">Gestionar Estados Cap.</a></li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">Mi Perfil</h3>
+                <ul class="card-list">
+                    <li><a th:href="@{/empleado/mis-datos}">Ver Mis Datos</a></li>
+                    <li><a th:href="@{/empleado/mis-turnos}">Ver Mis Turnos</a></li>
+                    <li><a th:href="@{/empleado/mis-novedades}">Solicitar Novedad</a></li>
+                    <li><a th:href="@{/empleado/mis-capacitaciones}">Ver Mis Capacitaciones</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

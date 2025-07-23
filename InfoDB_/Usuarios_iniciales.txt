@@ -1,0 +1,10 @@
+mail:		admin@sgturnos.com
+contraseña:	admin123
+
+
+mail:		jefe@sgturnos.com
+contraseña:	jefe123
+
+
+mail:		empleado@sgturnos.com
+contraseña:	empleado123

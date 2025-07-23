@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGTURNOS - Acceso Denegado</title>
+    <link rel="stylesheet" href="/css/main.css"> </head>
+<body class="error-body">
+    <div class="error-container">
+        <h1 class="error-code">403</h1>
+        <h2 class="error-message">Acceso Denegado</h2>
+        <p class="error-description">Lo sentimos, no tienes permiso para acceder a esta página.</p>
+        <div class="error-actions">
+            <a th:href="@{/dashboard_malla}" class="btn btn-primary">Volver al Dashboard</a>
+            <a th:href="@{/logout}" class="btn btn-secondary">Cerrar Sesión</a>
+        </div>
+    </div>
+</body>
+</html>
