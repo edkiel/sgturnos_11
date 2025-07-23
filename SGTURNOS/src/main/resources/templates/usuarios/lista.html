@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGTURNOS - Gestión de Usuarios</title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body class="dashboard-body">
+    <header class="main-header">
+        <div class="header-content">
+            <h1 class="app-title">Gestión de Usuarios</h1>
+            <div class="user-info">
+                Bienvenido, <span sec:authentication="name" class="user-name">Usuario</span>!
+                <form th:action="@{/logout}" method="post" class="logout-form">
+                    <button type="submit" class="btn btn-danger btn-sm">Cerrar Sesión</button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="header-actions">
+            <a th:href="@{/dashboard_malla}" class="btn btn-secondary">Volver al Dashboard</a>
+            <a th:href="@{/admin/usuarios/nuevo}" class="btn btn-primary">Crear Nuevo Usuario</a>
+        </div>
+
+        <h2>Lista de Usuarios</h2>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID Usuario</th>
+                    <th>Email</th>
+                    <th>Rol</th> <th>Empleado</th> <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="usuario : ${usuarios}">
+                    <td th:text="${usuario.idUsuario}"></td> <td th:text="${usuario.email}"></td>
+                    <td th:text="${usuario.rol.nombreRol}"></td> <td th:text="${usuario.empleado != null ? usuario.empleado.idEmpleado : 'N/A'}"></td> <td th:text="${usuario.enabled} ? 'Activo' : 'Inactivo'"></td> <td>
+                        <a th:href="@{/admin/usuarios/editar/{id}(id=${usuario.idUsuario})}" class="btn btn-sm btn-primary">Editar</a> </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div th:if="${#lists.isEmpty(usuarios)}" class="alert alert-info">
+            No hay usuarios registrados.
+        </div>
+    </div>
+</body>
+</html>
